@@ -1,0 +1,68 @@
+module Project_Go
+
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	// Matriz A
+	matrixA := [][]int{
+		{1, 2},
+		{3, 4},
+	}
+
+	// Matriz B
+	matrixB := [][]int{
+		{5, 6},
+		{7, 8},
+	}
+
+	// Calculando o produto das matrizes
+	result := multiplyMatrices(matrixA, matrixB)
+
+	// Exibindo o resultado
+	fmt.Println("Produto das matrizes:")
+	printMatrix(result)
+}
+
+// Função para multiplicar duas matrizes
+func multiplyMatrices(matrixA, matrixB [][]int) [][]int {
+	rowsA := len(matrixA)
+	colsA := len(matrixA[0])
+	rowsB := len(matrixB)
+	colsB := len(matrixB[0])
+
+	// Verificando se as matrizes podem ser multiplicadas
+	if colsA != rowsB {
+		panic("As matrizes não podem ser multiplicadas. O número de colunas da matriz A deve ser igual ao número de linhas da matriz B.")
+	}
+
+	// Criando uma matriz vazia para o resultado
+	result := make([][]int, rowsA)
+	for i := 0; i < rowsA; i++ {
+		result[i] = make([]int, colsB)
+	}
+
+	// Calculando o produto das matrizes
+	for i := 0; i < rowsA; i++ {
+		for j := 0; j < colsB; j++ {
+			for k := 0; k < colsA; k++ {
+				result[i][j] += matrixA[i][k] * matrixB[k][j]
+			}
+		}
+	}
+
+	return result
+}
+
+// Função para exibir a matriz
+func printMatrix(matrix [][]int) {
+	for _, row := range matrix {
+		for _, element := range row {
+			fmt.Printf("%d ", element)
+		}
+		fmt.Println()
+	}
+}
